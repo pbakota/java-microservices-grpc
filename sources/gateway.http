@@ -1,0 +1,36 @@
+#@hostname=http://127.0.0.1:8080/gateway
+@hostname=http://playbox:9182/gateway
+
+### Create order
+POST {{hostname}}/orders
+Content-Type: application/json
+
+{
+    "item": "Product 1",
+    "quantity": 1,
+    "amount": 3,
+    "address": "Foo bar 1"
+}
+
+### Get last 5 order
+GET {{hostname}}/orders?size=5&sort=id,desc
+
+### Get last 5 payment
+GET {{hostname}}/payments?size=5&sort=id,desc
+
+
+### Create stock item
+POST {{hostname}}/stock
+Content-Type: application/json
+
+{
+    "item": "Product 1",
+    "quantity": 100
+}
+
+### Get last 5 stock item
+GET {{hostname}}/stock?size=5&sort=id,desc
+
+### Get last 5 delivery
+GET {{hostname}}/deliveries?size=5&sort=id,desc
+

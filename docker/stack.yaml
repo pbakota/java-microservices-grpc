@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+  grpc-java-microservice-orders:
+    restart: unless-stopped
+    container_name: grpc-java-microservice-orders
+    image: grpc-java-microservice-orders:dev
+    volumes:
+      - ./config/orders/application.properties:/app/application.properties:r
+    expose:
+      - "8080"
+      - "9090"
+
+  grpc-java-microservice-payments:
+    restart: unless-stopped
+    container_name: grpc-java-microservice-payments
+    image: grpc-java-microservice-payments:dev
+    volumes:
+      - ./config/payments/application.properties:/app/application.properties:r
+    expose:
+      - "8080"
+      - "9090"
+
+  grpc-java-microservice-stock:
+    restart: unless-stopped
+    container_name: grpc-java-microservice-stock
+    image: grpc-java-microservice-stock:dev
+    volumes:
+      - ./config/stock/application.properties:/app/application.properties:r
+    expose:
+      - "8080"
+      - "9090"
+
+  grpc-java-microservice-delivery:
+    restart: unless-stopped
+    container_name: grpc-java-microservice-delivery
+    image: grpc-java-microservice-delivery:dev
+    volumes:
+      - ./config/delivery/application.properties:/app/application.properties:r
+    expose:
+      - "8080"
+      - "9090"
+
+  grpc-java-microservice-gw:
+    restart: unless-stopped
+    container_name: grpc-java-microservice-gw
+    image: grpc-java-microservice-gw:dev
+    volumes:
+      - ./config/gw/application.properties:/app/application.properties:r
+    ports:
+      - "0.0.0.0:9182:8080"
+    depends_on:
+      - grpc-java-microservice-orders
+      - grpc-java-microservice-payments
+      - grpc-java-microservice-stock
+      - grpc-java-microservice-delivery
+
